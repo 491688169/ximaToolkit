@@ -1,51 +1,67 @@
+/*
+ * @Author: Kim
+ * @Date: 2021-12-13 17:48:44
+ * @LastEditTime: 2021-12-17 19:59:32
+ * @LastEditors: Kim
+ * @Description:
+ * @FilePath: /ximaToolkit/.erb/configs/webpack.config.base.ts
+ */
 /**
  * Base webpack config used across other specific configs
  */
+import path from 'path';
 
 import webpack from 'webpack';
 import webpackPaths from './webpack.paths';
 import { dependencies as externals } from '../../release/app/package.json';
 
-export default {
-  externals: [...Object.keys(externals || {})],
+const webpackConfig: webpack.Configuration = {
+	externals: [...Object.keys(externals || {})],
 
-  stats: 'errors-only',
+	stats: 'errors-only',
 
-  module: {
-    rules: [
-      {
-        test: /\.[jt]sx?$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'ts-loader',
-          options: {
-            // Remove this line to enable type checking in webpack builds
-            transpileOnly: true,
-          },
-        },
-      },
-    ],
-  },
+	module: {
+		rules: [
+			{
+				test: /\.[jt]sx?$/,
+				exclude: /node_modules/,
+				use: {
+					loader: 'ts-loader',
+					options: {
+						// Remove this line to enable type checking in webpack builds
+						transpileOnly: true,
+					},
+				},
+			},
+		],
+	},
 
-  output: {
-    path: webpackPaths.srcPath,
-    // https://github.com/webpack/webpack/issues/1114
-    library: {
-      type: 'commonjs2',
-    },
-  },
+	output: {
+		path: webpackPaths.srcPath,
+		// https://github.com/webpack/webpack/issues/1114
+		library: {
+			type: 'commonjs2',
+		},
+	},
 
-  /**
-   * Determine the array of extensions that should be used to resolve modules.
-   */
-  resolve: {
-    extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
-    modules: [webpackPaths.srcPath, 'node_modules'],
-  },
+	/**
+	 * Determine the array of extensions that should be used to resolve modules.
+	 */
+	resolve: {
+		extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
+		modules: [webpackPaths.srcPath, 'node_modules'],
+		alias: {
+			ice: path.join(webpackPaths.srcRendererPath, '.ice'),
+			$ice: path.join(webpackPaths.srcRendererPath, '.ice'),
+			'@': path.join(webpackPaths.srcRendererPath, 'src'),
+		},
+	},
 
-  plugins: [
-    new webpack.EnvironmentPlugin({
-      NODE_ENV: 'production',
-    }),
-  ],
+	plugins: [
+		new webpack.EnvironmentPlugin({
+			NODE_ENV: 'production',
+		}),
+	],
 };
+
+export default webpackConfig;
