@@ -1,7 +1,7 @@
 /*
  * @Author: Kim
  * @Date: 2021-12-13 17:48:44
- * @LastEditTime: 2021-12-17 19:59:32
+ * @LastEditTime: 2021-12-20 11:21:07
  * @LastEditors: Kim
  * @Description:
  * @FilePath: /ximaToolkit/.erb/configs/webpack.config.base.ts
@@ -9,8 +9,6 @@
 /**
  * Base webpack config used across other specific configs
  */
-import path from 'path';
-
 import webpack from 'webpack';
 import webpackPaths from './webpack.paths';
 import { dependencies as externals } from '../../release/app/package.json';
@@ -50,11 +48,6 @@ const webpackConfig: webpack.Configuration = {
 	resolve: {
 		extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
 		modules: [webpackPaths.srcPath, 'node_modules'],
-		alias: {
-			ice: path.join(webpackPaths.srcRendererPath, '.ice'),
-			$ice: path.join(webpackPaths.srcRendererPath, '.ice'),
-			'@': path.join(webpackPaths.srcRendererPath, 'src'),
-		},
 	},
 
 	plugins: [

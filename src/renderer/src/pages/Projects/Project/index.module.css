@@ -1,0 +1,14 @@
+.container {
+  width: 220px;
+  margin: 0 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.foldername {
+  font-size: 20px;
+}
+
+.foldericon {
+  font-size: 60px;
+}
