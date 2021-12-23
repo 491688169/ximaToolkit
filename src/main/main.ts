@@ -18,7 +18,7 @@ import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
 import getFileList from './scripts/getFolderList';
-import { Events } from './consts/type';
+// import { Events } from './consts/type';
 
 export default class AppUpdater {
 	constructor() {
@@ -36,14 +36,15 @@ ipcMain.on('ipc-example', async (event, arg) => {
 	event.reply('ipc-example', msgTemplate('pong'));
 });
 
-ipcMain.on(Events.WorkspaceRead, async (event, arg: { wPath: string }) => {
-	getFileList(arg.wPath)
-		.then((files) => {
-			event.reply(Events.WorkspaceRead, files);
-		})
-		.catch((err) => {
-			event.reply(Events.WorkspaceRead, err);
-		});
+ipcMain.on('workspace-read', async (event, arg: { root: string }[]) => {
+	log.info('main workspace-read', arg);
+	try {
+		const files = await getFileList(arg[0].root);
+		log.info('main workspace-read files', files);
+		event.reply('workspace-read', files);
+	} catch (err) {
+		event.reply('worksapce-read', err);
+	}
 });
 
 if (process.env.NODE_ENV === 'production') {

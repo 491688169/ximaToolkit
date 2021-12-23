@@ -6,7 +6,7 @@
  * @Description:
  * @FilePath: /ximaToolkit/src/main/consts/type.ts
  */
-export enum Events {
+export enum Channel {
 	WorkspaceRead = 'workspace-read',
 }
 
