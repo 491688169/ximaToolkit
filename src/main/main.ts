@@ -11,14 +11,12 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import path from 'path';
-import { app, BrowserWindow, shell, ipcMain } from 'electron';
+import { app, BrowserWindow, shell } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
-
-import getFileList from './scripts/getFolderList';
-// import { Events } from './consts/type';
+import './listeners';
 
 export default class AppUpdater {
 	constructor() {
@@ -29,23 +27,6 @@ export default class AppUpdater {
 }
 
 let mainWindow: BrowserWindow | null = null;
-
-ipcMain.on('ipc-example', async (event, arg) => {
-	const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
-	console.log(msgTemplate(arg));
-	event.reply('ipc-example', msgTemplate('pong'));
-});
-
-ipcMain.on('workspace-read', async (event, arg: { root: string }[]) => {
-	log.info('main workspace-read', arg);
-	try {
-		const files = await getFileList(arg[0].root);
-		log.info('main workspace-read files', files);
-		event.reply('workspace-read', files);
-	} catch (err) {
-		event.reply('worksapce-read', err);
-	}
-});
 
 if (process.env.NODE_ENV === 'production') {
 	const sourceMapSupport = require('source-map-support');

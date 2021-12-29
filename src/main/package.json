@@ -1,0 +1,12 @@
+{
+  "name": "main",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "rc": "^1.2.8"
+  },
+  "devDependencies": {
+    "@types/rc": "^1.2.0"
+  }
+}

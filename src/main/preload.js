@@ -1,7 +1,7 @@
 /*
  * @Author: Kim
  * @Date: 2021-12-13 17:48:44
- * @LastEditTime: 2021-12-23 11:40:13
+ * @LastEditTime: 2021-12-28 22:41:53
  * @LastEditors: Kim
  * @Description:
  * @FilePath: /ximaToolkit/src/main/preload.js
@@ -23,7 +23,6 @@ contextBridge.exposeInMainWorld('electron', {
 			ipcRenderer.removeAllListeners(channel);
 		},
 		send(channel, ...args) {
-			console.log('send', channel, ...args);
 			ipcRenderer.send(channel, args);
 		},
 	},

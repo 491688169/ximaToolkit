@@ -1,14 +1,14 @@
 /*
  * @Author: Kim
  * @Date: 2021-12-20 14:05:18
- * @LastEditTime: 2021-12-20 14:08:20
+ * @LastEditTime: 2021-12-29 08:52:42
  * @LastEditors: Kim
  * @Description:
  * @FilePath: /ximaToolkit/src/renderer/src/models/workspace.ts
  */
 export default {
   state: {
-    workspace: '~/Workspace',
+    root: '/Users/xmly/Workspace',
   },
 
   reducers: {

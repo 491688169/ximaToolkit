@@ -1,7 +1,7 @@
 /*
  * @Author: Kim
  * @Date: 2021-12-20 13:33:42
- * @LastEditTime: 2021-12-20 13:35:44
+ * @LastEditTime: 2021-12-23 10:18:55
  * @LastEditors: Kim
  * @Description:
  * @FilePath: /ximaToolkit/.erb/scripts/electron-wait.js
@@ -21,7 +21,16 @@ const tryConnection = () =>
 			console.log('starting electron');
 			startedElectron = true;
 			const exec = require('child_process').exec;
-			exec('npm run start:main');
+			const child = exec('npm run start:main');
+			child.stdout.on('data', function (data) {
+				console.log('stdout: ' + data);
+			});
+			child.stderr.on('data', function (data) {
+				console.log('stdout: ' + data);
+			});
+			child.on('close', function (code) {
+				console.log('closing code: ' + code);
+			});
 		}
 	});
 
