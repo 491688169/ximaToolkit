@@ -1,16 +1,14 @@
 /*
  * @Author: Kim
  * @Date: 2021-12-20 14:40:56
- * @LastEditTime: 2021-12-29 08:35:32
+ * @LastEditTime: 2021-12-30 07:53:19
  * @LastEditors: Kim
  * @Description:
  * @FilePath: /ximaToolkit/src/renderer/src/pages/Projects/Project/index.tsx
  */
+import { useHistory } from 'ice';
 import { Card } from 'antd';
 import { FolderFilled } from '@ant-design/icons';
-import store from '@/store';
-
-import { workspaceReadRcSender } from '@/ipc/workspace';
 
 import styles from './index.module.scss';
 
@@ -20,14 +18,12 @@ export interface IProject {
 }
 
 export default function Project(props: IProject) {
-  const [workspaceState] = store.useModel('workspace');
-  const { root } = workspaceState;
+  const history = useHistory();
 
   const { name } = props;
 
   const handleClick = () => {
-    const dirname = `${root}/${name}`;
-    workspaceReadRcSender(dirname);
+    history.push('/project', { name });
   };
 
   return (
